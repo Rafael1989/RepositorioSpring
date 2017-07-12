@@ -1,6 +1,8 @@
 package br.com.caelum.tarefas.controller;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.xml.ws.RequestWrapper;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,5 +37,33 @@ public class TarefasController {
 		TarefaDAO dao = new TarefaDAO();
 		model.addAttribute("tarefas", dao.lista());
 		return "tarefa/lista";
+	}
+	
+	@RequestMapping("removeTarefa")
+	public String remove(Tarefa tarefa){
+		TarefaDAO dao = new TarefaDAO();
+		dao.remove(tarefa);
+		return "redirect:listaTarefas";
+	}
+	
+	@RequestMapping("mostraTarefa")
+	public String mostra(Long id, Model model){
+		TarefaDAO dao = new TarefaDAO();
+		model.addAttribute("tarefa",dao.buscaPorId(id));
+		return "tarefa/mostra";
+	}
+	
+	@RequestMapping("alteraTarefa")
+	public String altera(Tarefa tarefa){
+		TarefaDAO dao = new TarefaDAO();
+		dao.altera(tarefa);
+		return "redirect:listaTarefas";
+	}
+	
+	@RequestMapping("finalizaTarefa")
+	public void finaliza(Long id, HttpServletResponse response){
+		TarefaDAO dao = new TarefaDAO();
+		dao.finaliza(id);
+		response.setStatus(200);
 	}
 }
