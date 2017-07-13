@@ -13,6 +13,12 @@
 					$("#tarefa_"+id).html("Finalizado");
 				});
 			}
+			
+			function removeTarefaComAjax(id){
+				$.post("removeTarefaComAjax", {'id' : id}, function(){
+					$("#btnRemoveTarefa").closest("tr").hide();
+				});
+			}
 		</script>
 		<a href="novaTarefa">Criar nova tarefa</a>
 		<br /><br />
@@ -23,6 +29,7 @@
 				<th>Descrição</th>
 				<th>Finalizado?</th>
 				<th>Data de finalização</th>
+				<th></th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -47,6 +54,7 @@
 						</script>
 					</td>
 					<td><a href="removeTarefa?id=${tarefa.id}">Remover</a></td>
+					<td><a id="btnRemoveTarefa" href="#" onClick="removeTarefaComAjax(${tarefa.id})">Remover Com Ajax</a></td>
 					<td><a href="mostraTarefa?id=${tarefa.id}">Alterar</a></td>
 				</tr>
 			</c:forEach>
