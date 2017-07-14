@@ -13,6 +13,9 @@
 	<context:component-scan base-package="br.com.caelum.tarefas"/>
 	<mvc:annotation-driven/>
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:interceptors>
+		<bean class="br.com.caelum.tarefas.interceptor.AutorizadorInterceptor" />
+	</mvc:interceptors>
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/"/>
